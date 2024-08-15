@@ -1,4 +1,4 @@
-export const checkRandomPixKey = (pixKey: string): void => {
+export const checkRandomPixKey = async (pixKey: string): Promise<void> => {
     const regex = "^[A-Z0-9]{8,32}$";
 
     const tester = RegExp(regex);

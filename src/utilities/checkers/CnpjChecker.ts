@@ -1,4 +1,4 @@
-export const checkCnpj = (cnpj: string): void => {
+export const checkCnpj = async (cnpj: string): Promise<void> => {
     const regex = "^[0-9]{14}$";
 
     const tester = new RegExp(regex);
@@ -8,7 +8,7 @@ export const checkCnpj = (cnpj: string): void => {
     }
 };
 
-export const checkCnpjDigits = (cnpj: string): void => {
+export const checkCnpjDigits = async (cnpj: string): Promise<void> => {
     const checkFirst = cnpj.substring(0, 12).split("");
     const checkSecond = cnpj.substring(0, 13).split("");
 

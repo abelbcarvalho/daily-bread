@@ -1,4 +1,4 @@
-export const checkMobileNumber = (mobile: string): void => {
+export const checkMobileNumber = async (mobile: string): Promise<void> => {
     const regex = "^\\+[0-9]{13}$";
 
     const tester = new RegExp(regex);

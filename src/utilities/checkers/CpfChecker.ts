@@ -1,4 +1,4 @@
-export const checkCpf = (cpf: string): void => {
+export const checkCpf = async (cpf: string): Promise<void> => {
     const regex = "^[0-9]{11}$";
 
     const tester = new RegExp(regex);
@@ -8,7 +8,7 @@ export const checkCpf = (cpf: string): void => {
     }
 };
 
-export const checkCpfDigits = (cpf: string): void => {
+export const checkCpfDigits = async (cpf: string): Promise<void> => {
     const checkFirst = cpf.substring(0, 9).split("").reverse();
     const checkSecond = cpf.substring(0, 10).split("").reverse();
 

@@ -1,4 +1,4 @@
-export const checkBankNumberAccount = (bankNum: string): void => {
+export const checkBankNumberAccount = async (bankNum: string): Promise<void> => {
     const regex = "^[0-9]{8,12}$"
 
     const tester = new RegExp(regex);
@@ -8,7 +8,7 @@ export const checkBankNumberAccount = (bankNum: string): void => {
     }
 };
 
-export const checkBankAgency = (bankNum: string): void => {
+export const checkBankAgency = async (bankNum: string): Promise<void> => {
     const regex = "^[0-9]{4,5}$"
 
     const tester = new RegExp(regex);
@@ -18,7 +18,7 @@ export const checkBankAgency = (bankNum: string): void => {
     }
 };
 
-export const checkCardNumber = (card: string): void => {
+export const checkCardNumber = async (card: string): Promise<void> => {
     const regex = "^[0-9]{13,19}$"
 
     const tester = new RegExp(regex);
@@ -28,7 +28,7 @@ export const checkCardNumber = (card: string): void => {
     }
 };
 
-export const checkCvvCard = (cardCvv: string): void => {
+export const checkCvvCard = async (cardCvv: string): Promise<void> => {
     const regex = "^[0-9]{3}$"
 
     const tester = new RegExp(regex);
@@ -38,7 +38,7 @@ export const checkCvvCard = (cardCvv: string): void => {
     }
 };
 
-export const checkExpireDate = (expireDate: Date): void => {
+export const checkExpireDate = async (expireDate: Date): Promise<void> => {
     const tester = expireDate > new Date();
 
     if (!tester) {
@@ -46,7 +46,7 @@ export const checkExpireDate = (expireDate: Date): void => {
     }
 };
 
-export const checkCodeBank = (codeBank: string): void => {
+export const checkCodeBank = async (codeBank: string): Promise<void> => {
     const regex = "^[0-9]{3}$"
 
     const tester = new RegExp(regex);
@@ -56,7 +56,7 @@ export const checkCodeBank = (codeBank: string): void => {
     }
 };
 
-export const checkVariationBankAccount = (variation: number): void => {
+export const checkVariationBankAccount = async (variation: number): Promise<void> => {
     if (variation < 1) {
         throw new Error("bank account variation invalid");
     }
