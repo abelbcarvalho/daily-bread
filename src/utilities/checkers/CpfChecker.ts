@@ -14,12 +14,12 @@ export const checkCpfDigits = (cpf: string): void => {
 
     const digitsToCheck = cpf.substring(9, 11);
 
-    let mult = 1;
+    let mult = 2;
 
-    let frist = 2, second = 0;
+    let first = 0, second = 0;
 
     checkFirst.forEach((x) => {
-        frist += parseInt(x) * mult;
+        first += parseInt(x) * mult;
 
         mult += 1;
     });
@@ -32,13 +32,13 @@ export const checkCpfDigits = (cpf: string): void => {
         mult += 1;
     });
 
-    const restFirst = frist % 11;
+    const restFirst = first % 11;
     const restSecond = second % 11;
 
     let digits = "";
 
-    digits += 11 - restFirst ? 0 : [0,1].includes(restFirst);
-    digits += 11 - restSecond ? 0 : [0,1].includes(restSecond);
+    digits += [0,1].includes(restFirst) ? 0 : 11 - restFirst;
+    digits += [0,1].includes(restSecond) ? 0 : 11 - restSecond;
 
     if (!(digitsToCheck === digits)) {
         throw new Error("cpf checker digits are invalid");
