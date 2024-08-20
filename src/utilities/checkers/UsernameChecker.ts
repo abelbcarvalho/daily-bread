@@ -1,4 +1,4 @@
-import { UsernameException } from "../../exceptions/UsernameException";
+import { UsernameException } from "@exceptions/UsernameException";
 
 export const checkUsername = async (username: string): Promise<void> => {
     const regex = "^[a-z\._]{1}[a-z\._0-9]{3,32}$";

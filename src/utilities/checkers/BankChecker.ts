@@ -1,4 +1,4 @@
-import { BankException } from "../../exceptions/BankException";
+import { BankException } from "@exceptions/BankException";
 
 export const checkBankNumberAccount = async (bankNum: string): Promise<void> => {
     const regex = "^[0-9]{8,12}$"

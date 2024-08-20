@@ -1,4 +1,4 @@
-import { CnpjException } from "../../exceptions/CnpjException";
+import { CnpjException } from "@exceptions/CnpjException";
 
 export const checkCnpj = async (cnpj: string): Promise<void> => {
     const regex = "^[0-9]{14}$";

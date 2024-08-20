@@ -1,4 +1,4 @@
-import { CPfException } from "../../exceptions/CpfException";
+import { CPfException } from "@exceptions/CpfException";
 
 export const checkCpf = async (cpf: string): Promise<void> => {
     const regex = "^[0-9]{11}$";

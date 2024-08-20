@@ -1,4 +1,4 @@
-import { PixException } from "../../exceptions/PixException";
+import { PixException } from "@exceptions/PixException";
 
 export const checkRandomPixKey = async (pixKey: string): Promise<void> => {
     const regex = "^[A-Z0-9]{8,32}$";

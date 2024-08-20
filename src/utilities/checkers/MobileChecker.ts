@@ -1,4 +1,4 @@
-import { MobileException } from "../../exceptions/MobileException";
+import { MobileException } from "@exceptions/MobileException";
 
 export const checkMobileNumber = async (mobile: string): Promise<void> => {
     const regex = "^\\+[0-9]{13}$";
