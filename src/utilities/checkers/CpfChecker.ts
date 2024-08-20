@@ -1,10 +1,12 @@
+import { CPfException } from "../../exceptions/CpfException";
+
 export const checkCpf = async (cpf: string): Promise<void> => {
     const regex = "^[0-9]{11}$";
 
     const tester = new RegExp(regex);
 
     if (!tester.test(cpf)) {
-        throw new Error("cpf digits invalid");
+        throw new CPfException("cpf digits invalid");
     }
 };
 
@@ -41,6 +43,6 @@ export const checkCpfDigits = async (cpf: string): Promise<void> => {
     digits += [0,1].includes(restSecond) ? 0 : 11 - restSecond;
 
     if (!(digitsToCheck === digits)) {
-        throw new Error("cpf checker digits are invalid");
+        throw new CPfException("cpf checker digits are invalid");
     }
 };
