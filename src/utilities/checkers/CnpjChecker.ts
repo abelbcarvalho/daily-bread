@@ -1,10 +1,12 @@
+import { CnpjException } from "../../exceptions/CnpjException";
+
 export const checkCnpj = async (cnpj: string): Promise<void> => {
     const regex = "^[0-9]{14}$";
 
     const tester = new RegExp(regex);
 
     if (!tester.test(cnpj)) {
-        throw new Error("cnpj digits are invalid");
+        throw new CnpjException("cnpj digits are invalid");
     }
 };
 
@@ -44,6 +46,6 @@ export const checkCnpjDigits = async (cnpj: string): Promise<void> => {
     digits += restSecond >= 10 ? 0 : restSecond;
 
     if (!(digitsToCheck === digits)) {
-        throw new Error("cnpj checker digits are invalid");
+        throw new CnpjException("cnpj checker digits are invalid");
     }
 };
