@@ -1,5 +1,5 @@
-import { EnumGender } from "../enumerates/EnumGender";
-import { EnumLegalPerson } from "../enumerates/EnumLegalPerson";
+import { EnumGender } from "@enumerates/EnumGender";
+import { EnumLegalPerson } from "@enumerates/EnumLegalPerson";
 
 export interface AccountDTO {
     name: string;

@@ -1,4 +1,4 @@
-import { EnumCard } from "../enumerates/EnumCard";
+import { EnumCard } from "@enumerates/EnumCard";
 
 export interface CardDTO {
     descript?: string;

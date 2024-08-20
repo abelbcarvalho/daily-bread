@@ -1,5 +1,5 @@
-import { EnumMethod } from "../enumerates/EnumMethod";
-import { EnumMoney } from "../enumerates/EnumMoney";
+import { EnumMethod } from "@enumerates/EnumMethod";
+import { EnumMoney } from "@enumerates/EnumMoney";
 
 export interface BankOperationDTO {
     descript: string;

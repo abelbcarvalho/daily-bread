@@ -1,4 +1,4 @@
-import { EnumMoney } from "../enumerates/EnumMoney";
+import { EnumMoney } from "@enumerates/EnumMoney";
 
 export interface BankBoxOperationDTO {
     descript?: string;

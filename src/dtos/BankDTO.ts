@@ -1,4 +1,4 @@
-import { EnumBankAccount } from "../enumerates/EnumBankAccount";
+import { EnumBankAccount } from "@enumerates/EnumBankAccount";
 
 export interface BankDTO {
     code: string;

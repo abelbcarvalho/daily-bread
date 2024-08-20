@@ -1,4 +1,4 @@
-import { EnumPayment } from "../enumerates/EnumPayment";
+import { EnumPayment } from "@enumerates/EnumPayment";
 
 export interface PaymentDTO {
     descript: string;

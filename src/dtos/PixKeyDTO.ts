@@ -1,4 +1,4 @@
-import { EnumPixKey } from "../enumerates/EnumPixKey";
+import { EnumPixKey } from "@enumerates/EnumPixKey";
 
 export interface PixKeyDTO {
     descript?: string;
