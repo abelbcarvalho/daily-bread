@@ -12,3 +12,273 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// schema.prisma
+
+model Account {
+  id         Int             @id @default(autoincrement())
+  name       String
+  gender     EnumGender
+  socialName String?
+  person     EnumLegalPerson
+  cpf        String?         @unique
+  cnpj       String?         @unique
+  email      String          @unique
+  username   String          @unique
+  password   String
+  mobile     String
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+
+  bank  Bank[]  @relation("AccountBanks")
+  money Money[] @relation("AccountMoney")
+}
+
+model Bank {
+  id        Int             @id @default(autoincrement())
+  code      String
+  name      String
+  agency    String
+  numberAcc Int
+  typeAcc   EnumBankAccount
+  variation Int
+  balance   Float
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  account   Account?        @relation("AccountBanks", fields: [accountId], references: [id])
+  accountId Int?
+  bankBoxes BankBox[]
+  bankOps   BankOperation[]
+  cards     Card[]
+  pixKeys   PixKey[]
+}
+
+model BankBox {
+  id          Int       @id @default(autoincrement())
+  descript    String
+  objective   Int?
+  balance     Float
+  dayToRetire DateTime?
+  expireDate  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  bank       Bank               @relation(fields: [bankId], references: [id])
+  bankId     Int
+  operations BankBoxOperation[]
+}
+
+model BankBoxOperation {
+  id        Int       @id @default(autoincrement())
+  descript  String?
+  typeOpr   EnumMoney
+  balance   Float
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  bankBox   BankBox @relation(fields: [bankBoxId], references: [id])
+  bankBoxId Int
+}
+
+model BankOperation {
+  id        Int        @id @default(autoincrement())
+  descript  String
+  typeOpr   EnumMoney
+  method    EnumMethod
+  isExtern  Boolean    @default(false)
+  receiver  String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  bank       Bank             @relation(fields: [bankId], references: [id])
+  bankId     Int
+  receiverFk Int?
+  payments   BankOprPayment[]
+}
+
+model BankOprPayment {
+  id        Int      @id @default(autoincrement())
+  bankOprId Int
+  paymentId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  bankOperation BankOperation @relation(fields: [bankOprId], references: [id])
+  payment       Payment       @relation(fields: [paymentId], references: [id])
+}
+
+model Card {
+  id           Int      @id @default(autoincrement())
+  descript     String?
+  typeCard     EnumCard
+  flag         Int?
+  numberCard   String
+  codeSec      String
+  fullName     String
+  expireDate   DateTime
+  limitBalance Float
+  limitUsed    Float?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  bank     Bank      @relation(fields: [bankId], references: [id])
+  bankId   Int
+  invoices Invoice[]
+}
+
+model Invoice {
+  id               Int      @id @default(autoincrement())
+  descript         String
+  totalValue       Float
+  installments     Int
+  installValue     Float
+  paidInstallments Int
+  percentOff       Float?
+  totalWithOff     Float?
+  finished         Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  card     Card      @relation(fields: [cardId], references: [id])
+  cardId   Int
+  payments Payment[]
+}
+
+model Money {
+  id        Int      @id @default(autoincrement())
+  descript  String?
+  balance   Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  account    Account          @relation("AccountMoney", fields: [accountId], references: [id])
+  accountId  Int
+  moneyBoxes MoneyBox[]
+  operations MoneyOperation[]
+}
+
+model MoneyBox {
+  id        Int      @id @default(autoincrement())
+  descript  String
+  objective Int?
+  balance   Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  money      Money               @relation(fields: [moneyId], references: [id])
+  moneyId    Int
+  operations MoneyBoxOperation[]
+}
+
+model MoneyBoxOperation {
+  id        Int       @id @default(autoincrement())
+  descript  String
+  typeOpr   EnumMoney
+  balance   Float
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  moneyBox    MoneyBox      @relation(fields: [moneyBoxId], references: [id])
+  moneyBoxId  Int
+  MoneyOprBox MoneyOprBox[]
+}
+
+model MoneyOperation {
+  id        Int       @id @default(autoincrement())
+  descript  String
+  typeOpr   EnumMoney
+  balance   Float
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  money       Money         @relation(fields: [moneyId], references: [id])
+  moneyId     Int
+  MoneyOprBox MoneyOprBox[]
+}
+
+model MoneyOprBox {
+  id            Int      @id @default(autoincrement())
+  moneyOprId    Int
+  moneyBoxOprId Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  moneyOperation    MoneyOperation    @relation(fields: [moneyOprId], references: [id])
+  moneyBoxOperation MoneyBoxOperation @relation(fields: [moneyBoxOprId], references: [id])
+}
+
+model Payment {
+  id        Int         @id @default(autoincrement())
+  descript  String
+  typePay   EnumPayment
+  balance   Float
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  invoice        Invoice          @relation(fields: [invoiceId], references: [id])
+  invoiceId      Int
+  BankOprPayment BankOprPayment[]
+}
+
+model PixKey {
+  id        Int        @id @default(autoincrement())
+  descript  String?
+  typeKey   EnumPixKey
+  pixKey    String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  bank   Bank @relation(fields: [bankId], references: [id])
+  bankId Int
+}
+
+enum EnumBankAccount {
+  SAVING
+  CHECKING
+  PAYMENT
+}
+
+enum EnumCard {
+  CREDIT
+  DEBIT
+  CREDIT_DEBIT
+  PRE_PAID
+}
+
+enum EnumGender {
+  MALE
+  FEMALE
+  NOT_SAY
+}
+
+enum EnumLegalPerson {
+  PHYSICAL_PERSON
+  LEGAL_PERSON
+}
+
+enum EnumMethod {
+  PIX
+  TED
+  DOC
+  BANK_SLIP
+}
+
+enum EnumMoney {
+  WITHDRAW
+  DEPOSIT
+}
+
+enum EnumPayment {
+  PIX
+  ACCOUNT
+  BANK_SLIP
+}
+
+enum EnumPixKey {
+  RANDOM
+  MOBILE
+  CPF
+  CNPJ
+  EMAIL
+}
