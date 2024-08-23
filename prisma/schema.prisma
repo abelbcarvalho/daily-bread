@@ -27,6 +27,7 @@ model Account {
   username   String          @unique
   password   String
   mobile     String
+  active     Boolean         @default(false)
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
 
