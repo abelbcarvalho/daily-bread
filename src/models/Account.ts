@@ -14,6 +14,7 @@ export class Account {
     public username: string = "";
     public password: string = "";
     public mobile: string = "";
+    public active: boolean = false;
 
     public createdAt: Date = new Date(2000, 1, 1);
     public updatedAt: Date = new Date(2000, 1, 1);

@@ -12,4 +12,5 @@ export interface AccountDTO {
     username: string;
     password: string;
     mobile: string;
+    active?: boolean;
 }
