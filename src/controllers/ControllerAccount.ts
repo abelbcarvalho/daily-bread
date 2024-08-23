@@ -1,4 +1,5 @@
 import { AddapterAccountDTO } from "@utilities/dto-adapters/AdapterAccountDTO";
+import { AddapterAccountLoginDTO } from "@utilities/dto-adapters/AdapterAccountLoginDTO";
 
 export class ControllerAccount {
     constructor() { }
@@ -10,6 +11,9 @@ export class ControllerAccount {
     }
 
     async makeLoginExistingAccount(response: Response, request: Request): Promise<any> {
+        const adapter = new AddapterAccountLoginDTO(request);
+
+        const loginAccount = await adapter.adapterAccountLoginDTO();
     }
 
     async deactiveExistingAccount(response: Response, request: Request): Promise<any> {
