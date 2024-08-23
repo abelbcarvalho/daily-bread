@@ -1,6 +1,7 @@
 import { AccountDTO } from "@dtos/AccountDTO";
 import { AccountLoginDTO } from "@dtos/AccountLoginDTO";
 import { EnumLegalPerson } from "@enumerates/EnumLegalPerson";
+import { AccountInterface } from "@interfaces/AccountInterface";
 import { checkCnpj, checkCnpjDigits } from "@utilities/checkers/CnpjChecker";
 import { checkCpf, checkCpfDigits } from "@utilities/checkers/CpfChecker";
 import { checkEmail } from "@utilities/checkers/EmailChecker";
@@ -8,7 +9,7 @@ import { checkMobileNumber } from "@utilities/checkers/MobileChecker";
 import { checkPassword } from "@utilities/checkers/PasswordChecker";
 import { checkUsername } from "@utilities/checkers/UsernameChecker";
 
-export class ServiceAccount {
+export class ServiceAccount implements AccountInterface {
     constructor() { }
 
     async createNewAccount(account: AccountDTO): Promise<any> {
