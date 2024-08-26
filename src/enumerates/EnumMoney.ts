@@ -1,4 +1,4 @@
 export enum EnumMoney {
-    WITHDRAW="wtihdraw",
-    DEPOSIT="deposit",
+    WITHDRAW = "wtihdraw",
+    DEPOSIT = "deposit",
 };

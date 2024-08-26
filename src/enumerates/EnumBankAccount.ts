@@ -1,5 +1,5 @@
 export enum EnumBankAccount {
-    SAVING="saving",
-    CHECKING="checking",
-    PAYMENT="payment",
+    SAVING = "saving",
+    CHECKING = "checking",
+    PAYMENT = "payment",
 };
