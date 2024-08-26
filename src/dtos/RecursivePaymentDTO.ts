@@ -8,5 +8,5 @@ export interface RecursivePaymentDTO {
     stage: EnumStageRepeat;
     finish: boolean;
 
-    accountID: number;
+    accountId: number;
 }

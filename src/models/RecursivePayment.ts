@@ -10,7 +10,7 @@ export class RecuersivePayment {
     public stage: EnumStageRepeat = EnumStageRepeat.NO_REPEAT;
     public finish: boolean = false;
 
-    public accountID: number = 0;
+    public accountId: number = 0;
 
     public createdAt: Date = new Date(2000, 1, 1);
     public updatedAt: Date = new Date(2000, 1, 1);
