@@ -39,7 +39,7 @@ model Account {
 model RecuersivePayment {
   id       Int             @id @default(autoincrement())
   descript String
-  balance  Float
+  balance  Decimal         @db.Decimal(10, 2)
   day      Int
   month    Int
   stage    EnumStageRepeat
@@ -60,7 +60,7 @@ model Bank {
   numberAcc Int
   typeAcc   EnumBankAccount
   variation Int
-  balance   Float
+  balance   Decimal         @db.Decimal(10, 2)
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
 
@@ -76,7 +76,7 @@ model BankBox {
   id          Int       @id @default(autoincrement())
   descript    String
   objective   Int?
-  balance     Float
+  balance     Decimal   @db.Decimal(10, 2)
   dayToRetire DateTime?
   expireDate  DateTime?
   createdAt   DateTime  @default(now())
@@ -91,7 +91,7 @@ model BankBoxOperation {
   id        Int       @id @default(autoincrement())
   descript  String?
   typeOpr   EnumMoney
-  balance   Float
+  balance   Decimal   @db.Decimal(10, 2)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
@@ -135,8 +135,8 @@ model Card {
   codeSec      String
   fullName     String
   expireDate   DateTime
-  limitBalance Float
-  limitUsed    Float?
+  limitBalance Decimal  @db.Decimal(10, 2)
+  limitUsed    Decimal? @db.Decimal(10, 2)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -148,12 +148,12 @@ model Card {
 model Invoice {
   id               Int      @id @default(autoincrement())
   descript         String
-  totalValue       Float
+  totalValue       Decimal  @db.Decimal(10, 2)
   installments     Int
-  installValue     Float
+  installValue     Decimal  @db.Decimal(10, 2)
   paidInstallments Int
-  percentOff       Float?
-  totalWithOff     Float?
+  percentOff       Decimal? @db.Decimal(10, 2)
+  totalWithOff     Decimal? @db.Decimal(10, 2)
   finished         Boolean  @default(false)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
@@ -166,7 +166,7 @@ model Invoice {
 model Money {
   id        Int      @id @default(autoincrement())
   descript  String?
-  balance   Float
+  balance   Decimal  @db.Decimal(10, 2)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -180,7 +180,7 @@ model MoneyBox {
   id        Int      @id @default(autoincrement())
   descript  String
   objective Int?
-  balance   Float
+  balance   Decimal  @db.Decimal(10, 2)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -193,7 +193,7 @@ model MoneyBoxOperation {
   id        Int       @id @default(autoincrement())
   descript  String
   typeOpr   EnumMoney
-  balance   Float
+  balance   Decimal   @db.Decimal(10, 2)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
@@ -206,7 +206,7 @@ model MoneyOperation {
   id        Int       @id @default(autoincrement())
   descript  String
   typeOpr   EnumMoney
-  balance   Float
+  balance   Decimal   @db.Decimal(10, 2)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
@@ -230,7 +230,7 @@ model Payment {
   id        Int         @id @default(autoincrement())
   descript  String
   typePay   EnumPayment
-  balance   Float
+  balance   Decimal     @db.Decimal(10, 2)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 
