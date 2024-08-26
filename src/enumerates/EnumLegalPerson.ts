@@ -1,4 +1,4 @@
 export enum EnumLegalPerson {
-    PHYSICAL_PERSON = "physical-person",
-    LEGAL_PERSON = "legal-person",
+    PHYSICAL_PERSON = "physical_person",
+    LEGAL_PERSON = "legal_person",
 };
