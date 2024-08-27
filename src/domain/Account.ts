@@ -3,7 +3,7 @@ import {
     EnumLegalPerson,
 } from "@prisma/client";
 
-export type Account {
+export type Account = {
     name: string;
     gender: EnumGender;
     socialName?: string | undefined;
