@@ -61,7 +61,7 @@ export class AddapterAccountDTO {
         return this.body;
     }
 
-    async adaptAccountDTOToDomain(account: AccountDTO): Promise<AccountDomain> {
+    static async adaptAccountDTOToDomain(account: AccountDTO): Promise<AccountDomain> {
         const gender = (
             await EnumerateUtil.typescriptEnumToPrismaEnum(account.gender, GenderEnum)
         );
