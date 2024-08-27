@@ -1,7 +1,13 @@
+import { Account as AccountDomain } from "@domain/Account";
 import { AccountDTO } from "@dtos/AccountDTO";
 import { EnumGender } from "@enumerates/EnumGender";
+import {
+    EnumGender as GenderEnum,
+    EnumLegalPerson as LegalPersonEnum,
+} from "@prisma/client";
 import { EnumLegalPerson } from "@enumerates/EnumLegalPerson";
 import { BodyException } from "@exceptions/BodyException";
+import { EnumerateUtil } from "@utilities/enum/EnumerateUtil";
 
 export class AddapterAccountDTO {
     private body: any;
@@ -53,5 +59,31 @@ export class AddapterAccountDTO {
         }
 
         return this.body;
+    }
+
+    async adaptAccountDTOToDomain(account: AccountDTO): Promise<AccountDomain> {
+        const gender = (
+            await EnumerateUtil.typescriptEnumToPrismaEnum(account.gender, GenderEnum)
+        );
+
+        const person = (
+            await EnumerateUtil.typescriptEnumToPrismaEnum(account.person, LegalPersonEnum)
+        );
+
+        const newAccount: AccountDomain = {
+            name: account.name,
+            gender: gender,
+            socialName: account.socialName,
+            person: person,
+            cpf: account.cpf,
+            cnpj: account.cnpj,
+            email: account.email,
+            username: account.username,
+            password: account.password,
+            mobile: account.mobile,
+            active: account.active
+        };
+
+        return newAccount;
     }
 }
