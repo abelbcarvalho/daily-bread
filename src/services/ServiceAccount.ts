@@ -3,6 +3,7 @@ import { AccountLoginDTO } from "@dtos/AccountLoginDTO";
 import { EnumLegalPerson } from "@enumerates/EnumLegalPerson";
 import { AccountInterface } from "@interfaces/AccountInterface";
 import { AccountCreateUseCase } from "@use-cases/account/AccountCreateUseCase";
+import { AccountLoginUseCase } from "@use-cases/account/AccountLoginUseCase";
 import { checkCnpj, checkCnpjDigits } from "@utilities/checkers/CnpjChecker";
 import { checkCpf, checkCpfDigits } from "@utilities/checkers/CpfChecker";
 import { checkEmail } from "@utilities/checkers/EmailChecker";
@@ -12,9 +13,11 @@ import { checkUsername } from "@utilities/checkers/UsernameChecker";
 
 export class ServiceAccount implements AccountInterface {
     private create: AccountCreateUseCase;
+    private login: AccountLoginUseCase;
 
     constructor() {
         this.create = new AccountCreateUseCase();
+        this.login = new AccountLoginUseCase();
     }
 
     async createNewAccount(account: AccountDTO): Promise<any> {
@@ -33,6 +36,7 @@ export class ServiceAccount implements AccountInterface {
     }
 
     async makeLoginExistingAccount(accountLogin: AccountLoginDTO): Promise<any> {
+        return await this.login.execute(accountLogin);
     }
 
     async deactiveExistingAccount(accountId: number): Promise<any> {
