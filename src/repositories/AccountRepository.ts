@@ -53,6 +53,10 @@ export class AccountRepository implements AccountInterfaceRepository {
                 });
             });
 
+            if (!existingAccount) {
+                throw new Error("account not found for these credentials");
+            }
+
             return existingAccount;
         }
         catch (error) {
