@@ -1,6 +1,6 @@
 import { AddapterAccountDTO } from "@utilities/dto-adapters/AdapterAccountDTO";
 import { AddapterAccountLoginDTO } from "@utilities/dto-adapters/AdapterAccountLoginDTO";
-import { AdapterRequestParam } from '../utilities/dto-adapters/AdapterRequestParam';
+import { AdapterRequestParam } from "@utilities/dto-adapters/AdapterRequestParam";
 import { ServiceAccount } from "@services/ServiceAccount";
 import { AccountInterface } from "@interfaces/AccountInterface";
 
