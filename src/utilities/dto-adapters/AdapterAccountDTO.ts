@@ -1,5 +1,6 @@
 import { Account as AccountDomain } from "@domain/Account";
 import { AccountDTO } from "@dtos/AccountDTO";
+import { Account as AccountModel } from "@models/Account";
 import { EnumGender } from "@enumerates/EnumGender";
 import {
     EnumGender as GenderEnum,
@@ -82,6 +83,35 @@ export class AddapterAccountDTO {
             password: account.password,
             mobile: account.mobile,
             active: account.active
+        };
+
+        return newAccount;
+    }
+
+    static async adaptAccountDomainToModel(account: any): Promise<AccountModel> {
+        const gender = (
+            await EnumerateUtil.prismaEnumToTypescriptEnum(account.gender, EnumGender)
+        );
+
+        const person = (
+            await EnumerateUtil.prismaEnumToTypescriptEnum(account.person, EnumLegalPerson)
+        );
+
+        const newAccount: AccountModel = {
+            id: account.id,
+            name: account.name,
+            gender: gender,
+            socialName: account.socialName,
+            person: person,
+            cpf: account.cpf,
+            cnpj: account.cnpj,
+            email: account.email,
+            username: account.username,
+            password: account.password,
+            mobile: account.mobile,
+            active: account.active,
+            createdAt: account.createdAt,
+            updatedAt: account.updatedAt
         };
 
         return newAccount;

@@ -13,6 +13,10 @@ export class AccountCreateUseCase {
     async execute(account: AccountDTO): Promise<any> {
         const accountCreate = await AddapterAccountDTO.adaptAccountDTOToDomain(account);
 
-        return await this.repository.createNewAccount(accountCreate);
+        const newAccount = await this.repository.createNewAccount(accountCreate);
+
+        const accountModel = await AddapterAccountDTO.adaptAccountDomainToModel(newAccount);
+
+        return accountModel;
     }
 }
