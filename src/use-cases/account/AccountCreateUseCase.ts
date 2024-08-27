@@ -15,8 +15,6 @@ export class AccountCreateUseCase {
 
         const newAccount = await this.repository.createNewAccount(accountCreate);
 
-        const accountModel = await AddapterAccountDTO.adaptAccountDomainToModel(newAccount);
-
-        return accountModel;
+        return await AddapterAccountDTO.adaptAccountDomainToModel(newAccount);
     }
 }

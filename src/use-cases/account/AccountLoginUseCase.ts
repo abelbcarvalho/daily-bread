@@ -13,8 +13,6 @@ export class AccountLoginUseCase {
     async execute(accountLogin: AccountLoginDTO): Promise<any> {
         const existingAccount = await this.repository.makeLoginExistingAccount(accountLogin);
 
-        const accountModel = await AddapterAccountDTO.adaptAccountDomainToModel(existingAccount);
-
-        return accountModel;
+        return await AddapterAccountDTO.adaptAccountDomainToModel(existingAccount);
     }
 }
