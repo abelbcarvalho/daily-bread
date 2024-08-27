@@ -2,7 +2,7 @@ import { AccountDTO } from "@dtos/AccountDTO";
 import { AccountLoginDTO } from "@dtos/AccountLoginDTO";
 import { EnumLegalPerson } from "@enumerates/EnumLegalPerson";
 import { AccountInterface } from "@interfaces/AccountInterface";
-import { AccountCreateUseCase } from "@use-cases/AccountCreateUseCase";
+import { AccountCreateUseCase } from "@use-cases/account/AccountCreateUseCase";
 import { checkCnpj, checkCnpjDigits } from "@utilities/checkers/CnpjChecker";
 import { checkCpf, checkCpfDigits } from "@utilities/checkers/CpfChecker";
 import { checkEmail } from "@utilities/checkers/EmailChecker";
