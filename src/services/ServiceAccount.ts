@@ -2,6 +2,7 @@ import { AccountDTO } from "@dtos/AccountDTO";
 import { AccountLoginDTO } from "@dtos/AccountLoginDTO";
 import { EnumLegalPerson } from "@enumerates/EnumLegalPerson";
 import { AccountInterface } from "@interfaces/AccountInterface";
+import { AccountCreateUseCase } from "@use-cases/AccountCreateUseCase";
 import { checkCnpj, checkCnpjDigits } from "@utilities/checkers/CnpjChecker";
 import { checkCpf, checkCpfDigits } from "@utilities/checkers/CpfChecker";
 import { checkEmail } from "@utilities/checkers/EmailChecker";
@@ -10,7 +11,11 @@ import { checkPassword } from "@utilities/checkers/PasswordChecker";
 import { checkUsername } from "@utilities/checkers/UsernameChecker";
 
 export class ServiceAccount implements AccountInterface {
-    constructor() { }
+    private create: AccountCreateUseCase;
+
+    constructor() {
+        this.create = new AccountCreateUseCase();
+    }
 
     async createNewAccount(account: AccountDTO): Promise<any> {
         await this.checkAccountCpfOrCnpj(
@@ -23,6 +28,8 @@ export class ServiceAccount implements AccountInterface {
         await checkUsername(account.username);
         await checkPassword(account.password);
         await checkMobileNumber(account.mobile);
+
+        return await this.create.execute(account);
     }
 
     async makeLoginExistingAccount(accountLogin: AccountLoginDTO): Promise<any> {
