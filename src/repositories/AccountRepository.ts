@@ -68,5 +68,29 @@ export class AccountRepository implements AccountInterfaceRepository {
     }
 
     async deactiveExistingAccount(accountId: number): Promise<any> {
+        try {
+            await this.prisma.$connect();
+
+            let result: any;
+
+            await this.prisma.$transaction(async (db) => {
+                result = await db.account.update({
+                    data: {
+                        active: false,
+                    },
+                    where: {
+                        id: accountId
+                    }
+                })
+            });
+
+            return result;
+        }
+        catch (error) {
+            throw new DatabaseException((error as Error).message, 422);
+        }
+        finally {
+            await this.prisma.$disconnect();
+        }
     }
 }
