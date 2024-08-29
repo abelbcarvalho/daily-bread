@@ -10,11 +10,16 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "rimraf": "^6.0.1",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4"
   },
   "scripts": {
+    "start": "ts-node -r tsconfig-paths/register app.ts",
     "build": "tsc",
     "clean": "rimraf dist",
     "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2"
   }
 }
