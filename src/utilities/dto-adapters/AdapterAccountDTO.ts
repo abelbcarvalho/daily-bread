@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { Account as AccountDomain } from "@domain/Account";
 import { AccountDTO } from "@dtos/AccountDTO";
 import { Account as AccountModel } from "@models/Account";

@@ -3,6 +3,7 @@ import { AddapterAccountLoginDTO } from "@utilities/dto-adapters/AdapterAccountL
 import { AdapterRequestParam } from "@utilities/dto-adapters/AdapterRequestParam";
 import { ServiceAccount } from "@services/ServiceAccount";
 import { AccountInterface } from "@interfaces/AccountInterface";
+import { Request, Response } from "express";
 
 export class ControllerAccount {
     private service: AccountInterface;

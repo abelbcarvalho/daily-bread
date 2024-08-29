@@ -1,4 +1,5 @@
 import { ParameterException } from "@exceptions/ParameterException";
+import { Request } from "express";
 
 export class AdapterRequestParam {
     private params: any;
