@@ -9,6 +9,12 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
+    "rimraf": "^6.0.1",
     "typescript": "^5.5.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "prepublish": "npm run build"
   }
 }
