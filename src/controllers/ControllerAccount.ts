@@ -4,6 +4,7 @@ import { AdapterRequestParam } from "@utilities/dto-adapters/AdapterRequestParam
 import { ServiceAccount } from "@services/ServiceAccount";
 import { AccountInterface } from "@interfaces/AccountInterface";
 import { Request, Response } from "express";
+import { BaseException } from "@exceptions/BaseException";
 
 export class ControllerAccount {
     private service: AccountInterface;
@@ -13,11 +14,19 @@ export class ControllerAccount {
     }
 
     async createNewAccount(response: Response, request: Request): Promise<any> {
-        const adapter = new AddapterAccountDTO(request);
+        try {
+            const adapter = new AddapterAccountDTO(request);
 
-        const account = await adapter.adapterAccountDTO();
+            const account = await adapter.adapterAccountDTO();
 
-        return await this.service.createNewAccount(account);
+            const result = await this.service.createNewAccount(account);
+
+            return response.status(200).send(result);
+        }
+        catch (error) {
+            const err = error as BaseException;
+            return response.status(err.code).send({error: err.message});
+        }
     }
 
     async makeLoginExistingAccount(response: Response, request: Request): Promise<any> {
