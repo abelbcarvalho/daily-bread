@@ -40,9 +40,14 @@ export class AccountRepository implements AccountInterfaceRepository {
             await this.prisma.$transaction(async (db) => {
                 existingAccount = await db.account.findFirst({
                     where: {
-                        OR: [
-                            { username: accountLogin.username },
-                            { email: accountLogin.username }
+                        AND: [
+                            {
+                                OR: [
+                                    { username: accountLogin.username },
+                                    { email: accountLogin.username }
+                                ],
+                            },
+                            { active: true }
                         ]
                     }
                 });

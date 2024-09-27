@@ -15,6 +15,7 @@ export class AccountCreateUseCase {
         const accountCreate = await AddapterAccountDTO.adaptAccountDTOToDomain(account);
 
         accountCreate.password = await HashPassword.hashPassword(accountCreate.password);
+        accountCreate.active = true;
 
         const newAccount = await this.repository.createNewAccount(accountCreate);
 
