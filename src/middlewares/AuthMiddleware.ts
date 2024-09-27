@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken"
 
 const SECRET_KEY = process.env.SECRET_KEY || "your_secret_key";
 
-export const tokenAuthentication = (request: Request, response: Response, next: NextFunction) => {
+export const tokenAuthentication = async (request: Request, response: Response, next: NextFunction): Promise<any> => {
     const authHeader = request.headers["authorization"];
     const token = authHeader && authHeader.split(' ')[1];
 
@@ -18,4 +18,8 @@ export const tokenAuthentication = (request: Request, response: Response, next: 
         request.user = user;
         next();
     });
+};
+
+export const generateToken = async (payload: any): Promise<string> => {
+    return jwt.sign(payload, SECRET_KEY);
 };
