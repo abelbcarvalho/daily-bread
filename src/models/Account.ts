@@ -12,7 +12,6 @@ export class Account {
     public cnpj?: string;
     public email: string = "";
     public username: string = "";
-    public password: string = "";
     public mobile: string = "";
     public active: boolean = false;
 
