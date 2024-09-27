@@ -15,11 +15,11 @@ export const tokenAuthentication = async (request: Request, response: Response, 
 
     jwt.verify(token, SECRET_KEY, (err, user) => {
         if (err) return response.sendStatus(403);
-        request.user = user;
+        request.body = user;
         next();
     });
 };
 
-export const generateToken = async (payload: any): Promise<string> => {
-    return jwt.sign(payload, SECRET_KEY);
+export const generateToken = async (payload: any, expiresIn: string | number = "1h"): Promise<string> => {
+    return jwt.sign(payload, SECRET_KEY, { expiresIn });
 };

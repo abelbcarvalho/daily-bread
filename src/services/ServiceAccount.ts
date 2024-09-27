@@ -1,6 +1,7 @@
 import { AccountDTO } from "@dtos/AccountDTO";
 import { AccountLoginDTO } from "@dtos/AccountLoginDTO";
 import { EnumLegalPerson } from "@enumerates/EnumLegalPerson";
+import { LoginException } from "@exceptions/LoginException";
 import { AccountInterface } from "@interfaces/AccountInterface";
 import { AccountCreateUseCase } from "@use-cases/account/AccountCreateUseCase";
 import { AccountDeactiveUseCase } from "@use-cases/account/AccountDeactiveUseCase";
@@ -11,6 +12,7 @@ import { checkEmail } from "@utilities/checkers/EmailChecker";
 import { checkMobileNumber } from "@utilities/checkers/MobileChecker";
 import { checkPassword } from "@utilities/checkers/PasswordChecker";
 import { checkUsername } from "@utilities/checkers/UsernameChecker";
+import { HashPassword } from "@utilities/security/HashPassword";
 
 export class ServiceAccount implements AccountInterface {
     private create: AccountCreateUseCase;
@@ -39,7 +41,17 @@ export class ServiceAccount implements AccountInterface {
     }
 
     async makeLoginExistingAccount(accountLogin: AccountLoginDTO): Promise<any> {
-        return await this.login.execute(accountLogin);
+        const loginAccount = await this.login.execute(accountLogin);
+
+        const hash = loginAccount.password as string;
+
+        const allowed = await HashPassword.hashPasswordCompare(accountLogin.password, hash);
+
+        if (!allowed) {
+            throw new LoginException("password does not match to this account");
+        }
+
+        return loginAccount;
     }
 
     async deactiveExistingAccount(accountId: number): Promise<any> {

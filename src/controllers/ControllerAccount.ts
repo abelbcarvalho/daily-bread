@@ -5,6 +5,7 @@ import { ServiceAccount } from "@services/ServiceAccount";
 import { AccountInterface } from "@interfaces/AccountInterface";
 import { Request, Response } from "express";
 import { BaseException } from "@exceptions/BaseException";
+import { generateToken } from "@middlewares/AuthMiddleware";
 
 export class ControllerAccount {
     private service: AccountInterface;
@@ -35,7 +36,14 @@ export class ControllerAccount {
 
             const loginAccount = await adapter.adapterAccountLoginDTO();
 
-            return await this.service.makeLoginExistingAccount(loginAccount);
+            const loggedAccount = await this.service.makeLoginExistingAccount(loginAccount);
+
+            const authToken = await generateToken(loggedAccount);
+
+            return response.status(200).send({
+                message: "success to login, welcome!",
+                token: authToken
+            });
         }
         catch (error) {
             const err = error as BaseException;
