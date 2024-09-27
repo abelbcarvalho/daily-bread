@@ -108,6 +108,7 @@ export class AddapterAccountDTO {
             cnpj: account.cnpj,
             email: account.email,
             username: account.username,
+            password: account.password,
             mobile: account.mobile,
             active: account.active,
             createdAt: account.createdAt,

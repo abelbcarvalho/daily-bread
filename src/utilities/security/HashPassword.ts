@@ -2,7 +2,7 @@ import { PasswordException } from "@exceptions/PasswordException";
 import bcrypt from "bcrypt";
 
 export class HashPassword {
-    static async hashPassword(password: string): Promise<string> {
+    static async hashPassword(password: string | undefined): Promise<string> {
         if (!password) {
             throw new PasswordException("password can't be empty or undefined");
         }
@@ -13,7 +13,9 @@ export class HashPassword {
         return passHash;
     }
 
-    static async hashPasswordCompare(password: string, hash: string): Promise<boolean> {
-        return await bcrypt.compare(password, hash);
+    static async hashPasswordCompare(password: string | undefined, hash: string): Promise<boolean> {
+        const newPasswd = ("" ? password?.toString() : password) as string;
+
+        return await bcrypt.compare(newPasswd, hash);
     }
 }
