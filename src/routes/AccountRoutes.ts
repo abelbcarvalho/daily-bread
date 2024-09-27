@@ -11,4 +11,8 @@ accountRouter.post("/", async (request, response) => {
     return await controllerAccount.createNewAccount(response, request);
 });
 
+accountRouter.post("/login", async (request, response) => {
+    return await controllerAccount.makeLoginExistingAccount(response, request);
+});
+
 export default accountRouter;
