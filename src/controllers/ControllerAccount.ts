@@ -30,11 +30,17 @@ export class ControllerAccount {
     }
 
     async makeLoginExistingAccount(response: Response, request: Request): Promise<any> {
-        const adapter = new AddapterAccountLoginDTO(request);
+        try {
+            const adapter = new AddapterAccountLoginDTO(request);
 
-        const loginAccount = await adapter.adapterAccountLoginDTO();
+            const loginAccount = await adapter.adapterAccountLoginDTO();
 
-        return await this.service.makeLoginExistingAccount(loginAccount);
+            return await this.service.makeLoginExistingAccount(loginAccount);
+        }
+        catch (error) {
+            const err = error as BaseException;
+            return response.status(err.code).send({error: err.message})
+        }
     }
 
     async deactiveExistingAccount(response: Response, request: Request): Promise<any> {
