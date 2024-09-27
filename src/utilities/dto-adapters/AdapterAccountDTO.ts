@@ -89,7 +89,7 @@ export class AddapterAccountDTO {
         return newAccount;
     }
 
-    static async adaptAccountDomainToModel(account: any): Promise<AccountModel> {
+    static async adaptAccountDomainToModel(account: any, omitPasswd: boolean = true): Promise<AccountModel> {
         const gender = (
             await EnumerateUtil.prismaEnumToTypescriptEnum(account.gender, EnumGender)
         );
@@ -114,6 +114,10 @@ export class AddapterAccountDTO {
             createdAt: account.createdAt,
             updatedAt: account.updatedAt
         };
+
+        if (omitPasswd) {
+            newAccount.password = undefined;
+        }
 
         return newAccount;
     }
