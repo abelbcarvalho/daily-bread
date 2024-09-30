@@ -1,5 +1,6 @@
 import { AccountInterfaceRepository } from "@interfaces/AccountInterfaceRepository";
 import { AccountRepository } from "@repositories/AccountRepository";
+import { AddapterAccountDTO } from "@utilities/dto-adapters/AdapterAccountDTO";
 
 export class AccountDeactiveUseCase {
     private repository: AccountInterfaceRepository;
@@ -9,6 +10,10 @@ export class AccountDeactiveUseCase {
     }
 
     async execute(accountId: number): Promise<any> {
-        return await this.repository.deactiveExistingAccount(accountId);
+        const account = await this.repository.deactiveExistingAccount(accountId);
+
+        const response = await AddapterAccountDTO.adaptAccountDomainToModel(account);
+
+        return `account id ${response.id} was deactived with active ${response.active}`;
     }
 }

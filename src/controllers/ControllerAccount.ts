@@ -52,10 +52,18 @@ export class ControllerAccount {
     }
 
     async deactiveExistingAccount(response: Response, request: Request): Promise<any> {
-        const adapter = new AdapterRequestParam(request);
+        try {
+            const adapter = new AdapterRequestParam(request);
 
-        const accountId = await adapter.getParamID();
+            const accountId = await adapter.getParamID();
 
-        return await this.service.deactiveExistingAccount(accountId);
+            const result = await this.service.deactiveExistingAccount(accountId);
+
+            return response.status(200).send({message: result});
+        }
+        catch (error) {
+            const err = error as BaseException;
+            return response.status(err.code).send({error: err.message});
+        }
     }
 }

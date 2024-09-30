@@ -2,6 +2,7 @@ import { AccountDTO } from "@dtos/AccountDTO";
 import { AccountLoginDTO } from "@dtos/AccountLoginDTO";
 import { EnumLegalPerson } from "@enumerates/EnumLegalPerson";
 import { LoginException } from "@exceptions/LoginException";
+import { RequestException } from "@exceptions/RequestException";
 import { AccountInterface } from "@interfaces/AccountInterface";
 import { AccountCreateUseCase } from "@use-cases/account/AccountCreateUseCase";
 import { AccountDeactiveUseCase } from "@use-cases/account/AccountDeactiveUseCase";
@@ -55,7 +56,13 @@ export class ServiceAccount implements AccountInterface {
     }
 
     async deactiveExistingAccount(accountId: number): Promise<any> {
-        return await this.cancel.execute(accountId);
+        if (isNaN(accountId)) {
+            throw new RequestException("paramenter id must be numeric");
+        }
+
+        const idAccount = parseInt(accountId.toString());
+
+        return await this.cancel.execute(idAccount);
     }
 
     private async checkAccountCpfOrCnpj(person: EnumLegalPerson, cpf?: string, cnpj?: string): Promise<void> {

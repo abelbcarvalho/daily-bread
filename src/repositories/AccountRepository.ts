@@ -24,7 +24,8 @@ export class AccountRepository implements AccountInterfaceRepository {
             return newAccount;
         }
         catch (error) {
-            throw new DatabaseException((error as Error).message, 422);
+            console.error(error);
+            throw new DatabaseException("database operation has failed to create account", 422);
         }
         finally {
             this.prisma.$disconnect();
@@ -60,6 +61,7 @@ export class AccountRepository implements AccountInterfaceRepository {
             return existingAccount;
         }
         catch (error) {
+            console.error(error);
             throw new DatabaseException((error as Error).message, 422);
         }
         finally {
@@ -87,7 +89,8 @@ export class AccountRepository implements AccountInterfaceRepository {
             return result;
         }
         catch (error) {
-            throw new DatabaseException((error as Error).message, 422);
+            console.error(error);
+            throw new DatabaseException("database operation has failed to deactive account", 422);
         }
         finally {
             await this.prisma.$disconnect();
