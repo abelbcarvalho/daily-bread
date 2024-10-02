@@ -1,10 +1,16 @@
 import { BaseException } from "@exceptions/BaseException";
+import { BankInterface } from "@interfaces/BankInterface";
+import { ServiceBank } from "@services/ServiceBank";
 import { getAccountIdFromRequestBody } from "@utilities/data-getter/DataGetter";
 import { AdapterBankDTO } from "@utilities/dto-adapters/AdapterBankDTO";
 import { Request, Response } from "express";
 
 export class ControllerBank {
-    constructor() {}
+    private service: BankInterface;
+
+    constructor() {
+        this.service = new ServiceBank();
+    }
 
     async createNewBankAccount(response: Response, request: Request): Promise<any> {
         try {
@@ -15,11 +21,13 @@ export class ControllerBank {
             const bank = await adapter.adapterBankDTO();
             bank.accountId = accountId;
 
-            return response.status(200).send(bank);
+            const newBank = await this.service.createNewBankAccount(bank);
+
+            return response.status(200).send(newBank);
         }
         catch (error) {
             const err = error as BaseException;
-            return response.status(err.code).send({error: err.message})
+            return response.status(err.code).send({ error: err.message })
         }
     }
 }
