@@ -6,7 +6,7 @@ export class EnumerateUtil {
     }
 
     static async prismaEnumToTypescriptEnum<T, U>(enumPr: U, classe: { [key: string]: T }): Promise<T> {
-        const key = (enumPr as unknown as string).toLowerCase();
+        const key = (enumPr as unknown as string).toUpperCase();
 
         return classe[key];
     }
