@@ -65,11 +65,11 @@ export class AddapterAccountDTO {
 
     static async adaptAccountDTOToDomain(account: AccountDTO): Promise<AccountDomain> {
         const gender = (
-            await EnumerateUtil.typescriptEnumToPrismaEnum(account.gender, GenderEnum)
+            await EnumerateUtil.getEnumerateValue(account.gender, GenderEnum)
         );
 
         const person = (
-            await EnumerateUtil.typescriptEnumToPrismaEnum(account.person, LegalPersonEnum)
+            await EnumerateUtil.getEnumerateValue(account.person, LegalPersonEnum)
         );
 
         const newAccount: AccountDomain = {
@@ -91,11 +91,11 @@ export class AddapterAccountDTO {
 
     static async adaptAccountDomainToModel(account: any, omitPasswd: boolean = true): Promise<AccountModel> {
         const gender = (
-            await EnumerateUtil.prismaEnumToTypescriptEnum(account.gender, EnumGender)
+            await EnumerateUtil.getEnumerateValue(account.gender, EnumGender)
         );
 
         const person = (
-            await EnumerateUtil.prismaEnumToTypescriptEnum(account.person, EnumLegalPerson)
+            await EnumerateUtil.getEnumerateValue(account.person, EnumLegalPerson)
         );
 
         const newAccount: AccountModel = {

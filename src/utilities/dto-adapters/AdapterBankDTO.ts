@@ -16,7 +16,7 @@ export class AdapterBankDTO {
 
     static async adaptBankDTOToDomain(bank: BankDTO): Promise<BankDomain> {
         const typeAcc = (
-            await EnumerateUtil.typescriptEnumToPrismaEnum(bank.typeAcc, EnumBankPrisma)
+            await EnumerateUtil.getEnumerateValue(bank.typeAcc, EnumBankPrisma)
         );
 
         const accountId = parseInt(String(bank.accountId));
@@ -37,7 +37,7 @@ export class AdapterBankDTO {
 
     static async adaptBankDomainToModel(bank: any): Promise<BankModel> {
         const typeAcc = (
-            await EnumerateUtil.prismaEnumToTypescriptEnum(bank.typeAcc, EnumBankAccount)
+            await EnumerateUtil.getEnumerateValue(bank.typeAcc, EnumBankAccount)
         );
 
         const balance = bank.balance as unknown as number;
