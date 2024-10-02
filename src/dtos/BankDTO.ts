@@ -8,5 +8,5 @@ export interface BankDTO {
     typeAcc: EnumBankAccount;
     variation: number;
     balance: number;
-    accountId: number;
+    accountId?: number;
 }
