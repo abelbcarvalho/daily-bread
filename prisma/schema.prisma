@@ -57,7 +57,7 @@ model Bank {
   code      String
   name      String
   agency    String
-  numberAcc Int
+  numberAcc String
   typeAcc   EnumBankAccount
   variation Int
   balance   Decimal         @db.Decimal(10, 2)

@@ -6,7 +6,7 @@ export class Bank {
     public code: string = "";
     public name: string = "";
     public agency: string = "";
-    public numberAcc: number = 0;
+    public numberAcc: string = "";
     public typeAcc: EnumBankAccount = EnumBankAccount.CHECKING;
     public variation: number = 0;
     public balance: number = 0;

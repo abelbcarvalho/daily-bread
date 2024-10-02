@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Bank" ALTER COLUMN "numberAcc" SET DATA TYPE TEXT;
