@@ -1,14 +1,62 @@
 import { BankDTO } from "@dtos/BankDTO";
 import { BodyException } from "@exceptions/BodyException";
 import { EnumBankAccount } from "@enumerates/EnumBankAccount";
+import { EnumBankAccount as EnumBankPrisma } from "@prisma/client";
 import { Request } from "express";
 import { EnumerateUtil } from "@utilities/enum/EnumerateUtil";
+import { Bank as BankDomain } from "@domain/Bank";
+import { Bank as BankModel } from "@models/Bank";
 
 export class AdapterBankDTO {
     private body: any;
 
     constructor(request: Request) {
         this.body = request.body === null ? null : request.body;
+    }
+
+    static async adaptBankDTOToDomain(bank: BankDTO): Promise<BankDomain> {
+        const typeAcc = (
+            await EnumerateUtil.typescriptEnumToPrismaEnum(bank.typeAcc, EnumBankPrisma)
+        );
+
+        const accountId = parseInt(String(bank.accountId));
+
+        const newBank: BankDomain = {
+            code: bank.code,
+            name: bank.name,
+            typeAcc: typeAcc,
+            agency: bank.agency,
+            numberAcc: bank.numberAcc,
+            variation: bank.variation,
+            balance: bank.balance,
+            accountId: accountId
+        };
+
+        return newBank;
+    }
+
+    static async adaptBankDomainToModel(bank: any): Promise<BankModel> {
+        const typeAcc = (
+            await EnumerateUtil.prismaEnumToTypescriptEnum(bank.typeAcc, EnumBankAccount)
+        );
+
+        const balance = bank.balance as unknown as number;
+
+        const newBank: BankModel = {
+            id: bank.id,
+            code: bank.code,
+            name: bank.name,
+            typeAcc: typeAcc,
+            agency: bank.agency,
+            numberAcc: bank.numberAcc,
+            variation: bank.variation,
+            balance: balance,
+            accountId: bank.accountId,
+            createdAt: bank.createdAt,
+            updatedAt: bank.updatedAt
+        };
+
+        return newBank;
     }
 
     private async isBodyNull(): Promise<void> {
