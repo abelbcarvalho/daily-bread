@@ -94,6 +94,7 @@ src/
 ├──├──account/
 ├──utilities/
 ├──├──checkers/
+├──├──data-getter/
 ├──├──dto-adapters/
 ├──├──enum/
 ├──├──security/

@@ -1,4 +1,5 @@
 import { ControllerAccount } from "@controllers/ControllerAccount";
+import { tokenAuthentication } from "@middlewares/AuthMiddleware";
 import { Router } from "express";
 
 const accountRouter = Router();
@@ -17,6 +18,10 @@ accountRouter.post("/login", async (request, response) => {
 
 accountRouter.post("/deactive/:id", async (request, response) => {
     return await controllerAccount.deactiveExistingAccount(response, request);
+});
+
+accountRouter.post("/account", tokenAuthentication, async (request, response) => {
+    return await controllerAccount.getAccountById(response, request);
 });
 
 export default accountRouter;

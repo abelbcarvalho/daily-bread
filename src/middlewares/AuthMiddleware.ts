@@ -16,7 +16,11 @@ export const tokenAuthentication = async (request: Request, response: Response, 
     jwt.verify(token, SECRET_KEY, (err, user) => {
         if (err) return response.sendStatus(403);
 
-        request.params["id"] = (user as JwtPayload).id;
+        request.body = {
+            ...request.body,
+            account_id_fk: (user as JwtPayload).account_id
+        }
+
         next();
     });
 };

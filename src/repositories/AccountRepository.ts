@@ -96,4 +96,29 @@ export class AccountRepository implements AccountInterfaceRepository {
             await this.prisma.$disconnect();
         }
     }
+
+    async getAccountById(accountId: number): Promise<any> {
+        try {
+            await this.prisma.$connect();
+
+            let account: any;
+
+            await this.prisma.$transaction(async (db) => {
+                account = await db.account.findUnique({
+                    where: {
+                        id: accountId
+                    }
+                });
+            });
+
+            return account;
+        }
+        catch (error) {
+            console.error(error);
+            throw new DatabaseException("database operation has failed to get existing account", 422);
+        }
+        finally {
+            await this.prisma.$disconnect();
+        }
+    }
 }

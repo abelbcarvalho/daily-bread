@@ -6,6 +6,7 @@ import { AccountInterface } from "@interfaces/AccountInterface";
 import { Request, Response } from "express";
 import { BaseException } from "@exceptions/BaseException";
 import { generateToken } from "@middlewares/AuthMiddleware";
+import { getAccountIdFromRequestBody } from "@utilities/data-getter/DataGetter";
 
 export class ControllerAccount {
     private service: AccountInterface;
@@ -38,7 +39,7 @@ export class ControllerAccount {
 
             const loggedAccount = await this.service.makeLoginExistingAccount(loginAccount);
 
-            const authToken = await generateToken(loggedAccount);
+            const authToken = await generateToken({account_id: loggedAccount.id});
 
             return response.status(200).send({
                 message: "success to login, welcome!",
@@ -60,6 +61,20 @@ export class ControllerAccount {
             const result = await this.service.deactiveExistingAccount(accountId);
 
             return response.status(200).send({message: result});
+        }
+        catch (error) {
+            const err = error as BaseException;
+            return response.status(err.code).send({error: err.message});
+        }
+    }
+
+    async getAccountById(response: Response, request: Request): Promise<any> {
+        try {
+            const accountId = await getAccountIdFromRequestBody(request);
+
+            const account = await this.service.getAccountById(accountId);
+
+            return response.status(200).send(account);
         }
         catch (error) {
             const err = error as BaseException;

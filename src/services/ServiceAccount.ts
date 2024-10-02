@@ -4,6 +4,7 @@ import { EnumLegalPerson } from "@enumerates/EnumLegalPerson";
 import { LoginException } from "@exceptions/LoginException";
 import { RequestException } from "@exceptions/RequestException";
 import { AccountInterface } from "@interfaces/AccountInterface";
+import { AccountAuthGetUseCase } from "@use-cases/account/AccountAuthGetUseCase";
 import { AccountCreateUseCase } from "@use-cases/account/AccountCreateUseCase";
 import { AccountDeactiveUseCase } from "@use-cases/account/AccountDeactiveUseCase";
 import { AccountLoginUseCase } from "@use-cases/account/AccountLoginUseCase";
@@ -19,11 +20,13 @@ export class ServiceAccount implements AccountInterface {
     private create: AccountCreateUseCase;
     private login: AccountLoginUseCase;
     private cancel: AccountDeactiveUseCase;
+    private getAuthAcc: AccountAuthGetUseCase;
 
     constructor() {
         this.create = new AccountCreateUseCase();
         this.login = new AccountLoginUseCase();
         this.cancel = new AccountDeactiveUseCase();
+        this.getAuthAcc = new AccountAuthGetUseCase();
     }
 
     async createNewAccount(account: AccountDTO): Promise<any> {
@@ -63,6 +66,10 @@ export class ServiceAccount implements AccountInterface {
         const idAccount = parseInt(accountId.toString());
 
         return await this.cancel.execute(idAccount);
+    }
+
+    async getAccountById(accountId: number): Promise<any> {
+        return await this.getAuthAcc.execute(accountId);
     }
 
     private async checkAccountCpfOrCnpj(person: EnumLegalPerson, cpf?: string, cnpj?: string): Promise<void> {
