@@ -92,6 +92,7 @@ src/
 ├──types/
 ├──use-cases/
 ├──├──account/
+├──├──bank/
 ├──utilities/
 ├──├──checkers/
 ├──├──data-getter/
@@ -109,9 +110,17 @@ tsconfig.json
 ```
 
 ## Routes and Requests
-> /api/user -> create a new account;
+> /api/user -> registry a new account;
 
 > /api/user/login -> make login to our system;
+
+> /api/user/deactive/{id} -> deactive (soft delete) account by id;
+
+* Following the routes you need to be autheticated by login to an existing account;
+
+> /api/user/account -> get account data from a logged account;
+
+> /api/bank -> registry a new bank account;
 
 ## License
 Our license is **GNU GENERAL PUBLIC LICENSE**.
