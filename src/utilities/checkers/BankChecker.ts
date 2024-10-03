@@ -1,7 +1,7 @@
 import { BankException } from "@exceptions/BankException";
 
 export const checkBankNumberAccount = async (bankNum: string): Promise<void> => {
-    const regex = "^[0-9]{8,12}$"
+    const regex = "^[0-9]{1}[0-9]{4,13}[\-]{0,1}[0-9]{0,1}$";
 
     const tester = new RegExp(regex);
 
@@ -11,7 +11,7 @@ export const checkBankNumberAccount = async (bankNum: string): Promise<void> => 
 };
 
 export const checkBankAgency = async (bankNum: string): Promise<void> => {
-    const regex = "^[0-9]{4,5}$"
+    const regex = "^[0-9]{1}[0-9]{3}[\-]{0,1}[0-9]{0,1}$";
 
     const tester = new RegExp(regex);
 

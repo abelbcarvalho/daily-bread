@@ -27,7 +27,7 @@ export class ControllerAccount {
         }
         catch (error) {
             const err = error as BaseException;
-            return response.status(err.code).send({error: err.message});
+            return response.status(err.code).send({ error: err.message });
         }
     }
 
@@ -39,7 +39,7 @@ export class ControllerAccount {
 
             const loggedAccount = await this.service.makeLoginExistingAccount(loginAccount);
 
-            const authToken = await generateToken({account_id: loggedAccount.id});
+            const authToken = await generateToken({ account_id: loggedAccount.id });
 
             return response.status(200).send({
                 message: "success to login, welcome!",
@@ -48,7 +48,7 @@ export class ControllerAccount {
         }
         catch (error) {
             const err = error as BaseException;
-            return response.status(err.code).send({error: err.message})
+            return response.status(err.code).send({ error: err.message })
         }
     }
 
@@ -60,11 +60,11 @@ export class ControllerAccount {
 
             const result = await this.service.deactiveExistingAccount(accountId);
 
-            return response.status(200).send({message: result});
+            return response.status(200).send({ message: result });
         }
         catch (error) {
             const err = error as BaseException;
-            return response.status(err.code).send({error: err.message});
+            return response.status(err.code).send({ error: err.message });
         }
     }
 
@@ -78,7 +78,7 @@ export class ControllerAccount {
         }
         catch (error) {
             const err = error as BaseException;
-            return response.status(err.code).send({error: err.message});
+            return response.status(err.code).send({ error: err.message });
         }
     }
 }
