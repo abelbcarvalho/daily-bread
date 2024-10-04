@@ -6,6 +6,7 @@ import { Request } from "express";
 import { EnumerateUtil } from "@utilities/enum/EnumerateUtil";
 import { Bank as BankDomain } from "@domain/Bank";
 import { Bank as BankModel } from "@models/Bank";
+import { AdaptperFusion } from "./AdapterFusion";
 
 export class AdapterBankDTO {
     private body: any;
@@ -69,6 +70,13 @@ export class AdapterBankDTO {
 
     async adapterBankDTO(): Promise<BankDTO> {
         await this.isBodyNull();
+
+        const chaves = await AdaptperFusion.getDTOKeys<BankDTO>(new BankModel());
+
+        this.body = await AdaptperFusion.fusionDataObjectRestrictDefined<Array<string>, Object, BankDTO>(
+            chaves,
+            this.body
+        );
 
         const requires = await this.isBankDTORequired();
 
