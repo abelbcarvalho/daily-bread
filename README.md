@@ -122,6 +122,8 @@ tsconfig.json
 
 > /api/bank -> registry a new bank account;
 
+> /api/bank/{id}/update -> update an existing bank account;
+
 ## License
 Our license is **GNU GENERAL PUBLIC LICENSE**.
 
