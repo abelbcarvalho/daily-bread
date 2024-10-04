@@ -17,6 +17,6 @@ export class AdapterRequestParam {
             throw new ParameterException("parameter id not found on request");
         }
 
-        return id;
+        return parseInt(id);
     }
 }
