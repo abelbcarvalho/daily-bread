@@ -4,4 +4,5 @@ import { BankUpdateDTO } from "@dtos/BankUpdateDTO";
 export interface BankInterfaceRepository {
     createNewBankAccount(bank: Bank): Promise<any>;
     updateExistingBankAccount(bank: BankUpdateDTO, bankId: number): Promise<any>;
+    getAllBankAccountFromAnUser(accountId: number): Promise<any>;
 }

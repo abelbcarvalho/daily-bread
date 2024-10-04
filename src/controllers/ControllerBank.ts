@@ -18,6 +18,8 @@ export class ControllerBank {
         try {
             const accountId = await getAccountIdFromRequestBody(request);
 
+            request.body = {};
+
             const adapter = new AdapterBankDTO(request);
 
             const bank = await adapter.adapterBankDTO();
@@ -50,6 +52,22 @@ export class ControllerBank {
         catch (error) {
             const err = error as BaseException;
             return response.status(err.code).send({ error: err.message });
+        }
+    }
+
+    async getAllBankAccountFromAnUser(response: Response, request: Request): Promise<any> {
+        try {
+            const accountId = await getAccountIdFromRequestBody(request);
+
+            request.body = {};
+
+            const banks = await this.service.getAllBankAccountFromAnUser(accountId);
+
+            return response.status(200).send({ allBanks: banks });
+        }
+        catch (error) {
+            const err = error as BaseException;
+            return response.status(err.code).send({ error: err.message })
         }
     }
 }

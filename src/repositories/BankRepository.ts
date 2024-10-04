@@ -69,4 +69,25 @@ export class BankRepository implements BankInterfaceRepository {
             this.prisma.$disconnect();
         }
     }
+
+    async getAllBankAccountFromAnUser(accountId: number): Promise<any> {
+        try {
+            this.prisma.$connect();
+
+            let response: any;
+
+            await this.prisma.$transaction(async (db) => {
+                response = await db.bank.findMany({ where: { accountId: accountId } });
+            });
+
+            return response;
+        }
+        catch (error) {
+            console.error(error);
+            throw new DatabaseException("database operation to get all banks from an account empty");
+        }
+        finally {
+            this.prisma.$disconnect();
+        }
+    }
 }

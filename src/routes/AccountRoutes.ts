@@ -16,7 +16,7 @@ accountRouter.post("/login", async (request, response) => {
     return await controllerAccount.makeLoginExistingAccount(response, request);
 });
 
-accountRouter.post("/deactive/:id", async (request, response) => {
+accountRouter.post("/:id/deactive", async (request, response) => {
     return await controllerAccount.deactiveExistingAccount(response, request);
 });
 

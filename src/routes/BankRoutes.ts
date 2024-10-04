@@ -16,4 +16,8 @@ bankRouter.post("/:id/update", tokenAuthentication, async (request, response) =>
     return await controllerBank.updateExistingBankAccount(response, request);
 });
 
+bankRouter.post("/all", tokenAuthentication, async (request, response) => {
+    return await controllerBank.getAllBankAccountFromAnUser(response, request);
+});
+
 export default bankRouter;
