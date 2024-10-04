@@ -14,4 +14,21 @@ export class AdaptperFusion {
 
         return data as C;
     }
+
+    static async fusionDataObjectRestrictDefined<U extends Array<string>, T extends Object, C>(dtoKeys: U, newDTO: T): Promise<C> {
+        let data: C = {} as C;
+
+        dtoKeys.map((x) => {
+            if (newDTO[x as keyof T] !== undefined) {
+                const c = x as keyof C;
+                data[c] = newDTO[x as keyof T] as any;
+            }
+        });
+
+        return data;
+    }
+
+    static async getDTOKeys<T>(dto: T): Promise<Array<keyof T>> {
+        return Object.keys(dto as Object) as Array<keyof T>;
+    }
 }
