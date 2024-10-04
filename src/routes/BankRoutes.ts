@@ -12,7 +12,7 @@ bankRouter.post("/", tokenAuthentication, async (request, response) => {
     return await controllerBank.createNewBankAccount(response, request);
 });
 
-bankRouter.post("/:id/update", /*tokenAuthentication,*/ async (request, response) => {
+bankRouter.post("/:id/update", tokenAuthentication, async (request, response) => {
     return await controllerBank.updateExistingBankAccount(response, request);
 });
 
