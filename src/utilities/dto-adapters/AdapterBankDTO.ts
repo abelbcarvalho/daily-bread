@@ -7,6 +7,7 @@ import { EnumerateUtil } from "@utilities/enum/EnumerateUtil";
 import { Bank as BankDomain } from "@domain/Bank";
 import { Bank as BankModel } from "@models/Bank";
 import { AdaptperFusion } from "./AdapterFusion";
+import { BankUpdateDTO } from "@dtos/BankUpdateDTO";
 
 export class AdapterBankDTO {
     private body: any;
@@ -87,6 +88,25 @@ export class AdapterBankDTO {
         return await this.toBankDTO();
     }
 
+    async adapterBankUpdateDTO(): Promise<BankUpdateDTO> {
+        await this.isBodyNull();
+
+        const chaves = await AdaptperFusion.getDTOKeys<BankUpdateDTO>(new BankModel());
+
+        this.body = await AdaptperFusion.fusionDataObjectRestrictDefined<Array<string>, Object, BankUpdateDTO>(
+            chaves,
+            this.body
+        );
+
+        const validators = await this.isBankDTORequiredAllowUndefined();
+
+        if (!validators) {
+            throw new BodyException("body is invalid for bank update body");
+        }
+
+        return await this.toBankDTO();
+    }
+
     /** checkers */
 
     private async isBankDTORequired(): Promise<boolean> {
@@ -98,6 +118,20 @@ export class AdapterBankDTO {
             ['typeAcc', value => Object.values(EnumBankAccount).includes(value)],
             ['variation', value => typeof value === 'number'],
             ['balance', value => typeof value === 'number'],
+        ]);
+
+        return Array.from(requiredValidators.entries()).every(([key, validate]) => validate(this.body[key]));
+    }
+
+    private async isBankDTORequiredAllowUndefined(): Promise<boolean> {
+        const requiredValidators = new Map<string, (value: any) => boolean>([
+            ['name', value => typeof value === 'undefined' || typeof value === 'string'],
+            ['code', value => typeof value === 'undefined' || typeof value === 'string'],
+            ['agency', value => typeof value === 'undefined' || typeof value === 'string'],
+            ['numberAcc', value => typeof value === 'undefined' || typeof value === 'string'],
+            ['typeAcc', value => typeof value === 'undefined' || Object.values(EnumBankAccount).includes(value)],
+            ['variation', value => typeof value === 'undefined' || typeof value === 'number'],
+            ['balance', value => typeof value === 'undefined' || typeof value === 'number'],
         ]);
 
         return Array.from(requiredValidators.entries()).every(([key, validate]) => validate(this.body[key]));
