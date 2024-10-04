@@ -43,7 +43,9 @@ export class ControllerBank {
 
             const bank = await adapterDTO.adapterBankUpdateDTO();
 
-            return response.status(200).send(bank);
+            const updated = await this.service.updateExistingBankAccount(bank, bankId);
+
+            return response.status(200).send(updated);
         }
         catch (error) {
             const err = error as BaseException;

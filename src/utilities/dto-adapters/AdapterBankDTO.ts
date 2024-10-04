@@ -104,7 +104,7 @@ export class AdapterBankDTO {
             throw new BodyException("body is invalid for bank update body");
         }
 
-        return await this.toBankDTO();
+        return this.body;
     }
 
     /** checkers */

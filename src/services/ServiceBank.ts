@@ -1,4 +1,5 @@
 import { BankDTO } from "@dtos/BankDTO";
+import { BankUpdateDTO } from "@dtos/BankUpdateDTO";
 import { BankInterface } from "@interfaces/BankInterface";
 import { BankCreateUseCase } from "@use-cases/bank/BankCreateUseCase";
 import {
@@ -6,7 +7,7 @@ import {
     checkBankNumberAccount,
     checkCodeBank,
     checkVariationBankAccount,
-} from "@utilities/checkers/BankChecker"; 
+} from "@utilities/checkers/BankChecker";
 
 export class ServiceBank implements BankInterface {
     private create: BankCreateUseCase;
@@ -22,5 +23,17 @@ export class ServiceBank implements BankInterface {
         await checkVariationBankAccount(bank.variation);
 
         return await this.create.execute(bank);
+    }
+
+    async updateExistingBankAccount(bank: BankUpdateDTO, bankId: number): Promise<any> {
+        if (bank.code) await checkCodeBank(bank.code);
+
+        if (bank.agency) await checkBankAgency(bank.agency);
+
+        if (bank.numberAcc) await checkBankNumberAccount(bank.numberAcc);
+
+        if (bank.variation) await checkVariationBankAccount(bank.variation);
+
+        return bank;
     }
 }
