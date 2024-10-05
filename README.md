@@ -131,6 +131,8 @@ tsconfig.json
 
 > /api/bank/all -> get all banks account registried by an user;
 
+* Money's routes;
+
 > /api/money -> register a new money cash registry;
 
 > /api/money/{id}/update -> update an existing money cash registry;
