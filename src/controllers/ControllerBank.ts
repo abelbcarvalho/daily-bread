@@ -8,7 +8,6 @@ import { Request, Response } from "express";
 
 export class ControllerBank {
     private service: BankInterface;
-    private chaves: any;
 
     constructor() {
         this.service = new ServiceBank();
