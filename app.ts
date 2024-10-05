@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import dotenv from "dotenv";
 import accountRouter from "@routes/AccountRoutes";
 import bankRouter from "@routes/BankRoutes";
+import moneyRouter from "@routes/MoneyRoutes";
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ app.use(bodyParser.json());
 
 app.use("/api/user", accountRouter);
 app.use("/api/bank", bankRouter);
+app.use("/api/money", moneyRouter);
 
 const PORT = process.env.PORT || 3000;
 
