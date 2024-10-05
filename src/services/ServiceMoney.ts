@@ -3,6 +3,7 @@ import { MoneyInterface } from "@interfaces/MoneyInterface";
 import { MoneyCreateUseCase } from "@use-cases/money/MoneyCreateUseCase";
 import { MoneyGetAllUseCase } from "@use-cases/money/MoneyGetAllUseCase";
 import { MoneyUpdateUseCase } from "@use-cases/money/MoneyUpdateUseCase";
+import { moneyChecker } from "@utilities/checkers/MoneyChecker";
 
 export class ServiceMoney implements MoneyInterface {
     private create: MoneyCreateUseCase;
@@ -16,10 +17,14 @@ export class ServiceMoney implements MoneyInterface {
     }
 
     async createNewMoneyRegistry(money: MoneyDTO): Promise<any> {
+        await moneyChecker(money);
+
         return await this.create.execute(money);
     }
 
     async updateExistingMoneyRegistry(money: MoneyDTO, moneyId: number): Promise<any> {
+        await moneyChecker(money);
+
         return await this.update.execute(money, moneyId);
     }
 
