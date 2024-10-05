@@ -1,6 +1,6 @@
 import { EnumStageRepeat } from "@enumerates/EnumStageRepeat";
 
-export class RecuersivePayment {
+export class RecursivePayment {
     public id: number = 0;
 
     public descript: string = "";
