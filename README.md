@@ -125,7 +125,7 @@ tsconfig.json
 
 * Bank's routes;
 
-> /api/bank -> registry a new bank account;
+> /api/bank -> register a new bank account;
 
 > /api/bank/{id}/update -> update an existing bank account;
 
@@ -138,6 +138,14 @@ tsconfig.json
 > /api/money/{id}/update -> update an existing money cash registry;
 
 > /api/money/all -> get all money cashes registried by an user;
+
+* RecursivePayment's routes;
+
+> /api/recursive-payment -> register a new recursive payment by account;
+
+> /api/recursive-payment/{id}/update -> update an existing recursive payment;
+
+> /api/recursive-payment/all -> get all recursive payments for an account;
 
 ## License
 Our license is **GNU GENERAL PUBLIC LICENSE**.
