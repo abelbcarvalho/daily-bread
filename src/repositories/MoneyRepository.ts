@@ -62,7 +62,7 @@ export class MoneyRepository implements MoneyInterfaceRepository {
             let allMoneyCash: any;
 
             await this.prisma.$transaction(async (db) => {
-                allMoneyCash = await db.money.findMany({where: {accountId: accountId}});
+                allMoneyCash = await db.money.findMany({ where: { accountId: accountId } });
             });
 
             return allMoneyCash;
