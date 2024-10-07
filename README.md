@@ -147,6 +147,14 @@ tsconfig.json
 
 > /api/recursive-payment/all -> get all recursive payments for an account;
 
+* BankBox's routes;
+
+> /api/bank-box -> register a new bank box;
+
+> /api/bank-box/{id}/update -> update an existing bank box by id;
+
+> /api/bank-box/{bankId}/all -> get all bank box for a specific bank id;
+
 ## License
 Our license is **GNU GENERAL PUBLIC LICENSE**.
 
