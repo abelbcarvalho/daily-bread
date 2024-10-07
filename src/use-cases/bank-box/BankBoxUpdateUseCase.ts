@@ -9,5 +9,7 @@ export class BankBoxUpdateUseCase {
         this.respository = new BankBoxRepository();
     }
 
-    async execute(bankBox: BankBoxDTO, idBankBox: number): Promise<any> { }
+    async execute(bankBox: BankBoxDTO, idBankBox: number): Promise<any> {
+        return await this.respository.updateAnExistingBankBox(bankBox, idBankBox);
+    }
 }

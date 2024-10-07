@@ -8,5 +8,7 @@ export class BankBoxGetAllUseCase {
         this.respository = new BankBoxRepository();
     }
 
-    async execute(bankId: number): Promise<any> { }
+    async execute(bankId: number): Promise<any> {
+        return await this.respository.getAllBankBoxByBankId(bankId);
+    }
 }
