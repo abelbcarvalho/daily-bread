@@ -12,7 +12,7 @@ export class MoneyRepository implements MoneyInterfaceRepository {
 
     async createNewMoneyRegistry(money: Money): Promise<any> {
         try {
-            this.prisma.$connect();
+            await this.prisma.$connect();
 
             let response: any;
 
@@ -27,13 +27,13 @@ export class MoneyRepository implements MoneyInterfaceRepository {
             throw new DatabaseException("database operation has failed to create a new money cash registry", 422);
         }
         finally {
-            this.prisma.$disconnect();
+            await this.prisma.$disconnect();
         }
     }
 
     async updateExistingMoneyRegistry(money: Money, moneyId: number): Promise<any> {
         try {
-            this.prisma.$connect();
+            await this.prisma.$connect();
 
             let response: any;
 
@@ -51,13 +51,13 @@ export class MoneyRepository implements MoneyInterfaceRepository {
             throw new DatabaseException("database operation has failed to update an existing money cash registry", 422);
         }
         finally {
-            this.prisma.$disconnect();
+            await this.prisma.$disconnect();
         }
     }
 
     async getAllMoneyByAccountId(accountId: number): Promise<Array<any>> {
         try {
-            this.prisma.$connect();
+            await this.prisma.$connect();
 
             let allMoneyCash: any;
 
@@ -72,7 +72,7 @@ export class MoneyRepository implements MoneyInterfaceRepository {
             throw new DatabaseException("database operation to get all money cash registries has failed", 422);
         }
         finally {
-            this.prisma.$disconnect();
+            await this.prisma.$disconnect();
         }
     }
 }

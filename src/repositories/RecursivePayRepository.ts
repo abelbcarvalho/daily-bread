@@ -12,7 +12,7 @@ export class RecursivePayRepository implements RecursivePayIntefaceRepository {
 
     async createNewRecursivePayment(recursivePay: RecursivePayment): Promise<any> {
         try {
-            this.prisma.$connect();
+            await this.prisma.$connect();
 
             let response: any;
 
@@ -27,13 +27,13 @@ export class RecursivePayRepository implements RecursivePayIntefaceRepository {
             throw new DatabaseException("database operation has failed to create a new recursive payment", 422)
         }
         finally {
-            this.prisma.$disconnect();
+            await this.prisma.$disconnect();
         }
     }
 
     async updateAnExistingRecursivePayment(recursivePay: RecursivePayment, recPayId: number): Promise<any> {
         try {
-            this.prisma.$connect();
+            await this.prisma.$connect();
 
             let response: any;
 
@@ -51,13 +51,13 @@ export class RecursivePayRepository implements RecursivePayIntefaceRepository {
             throw new DatabaseException("database operation has failed to update an existing recursive payment", 422)
         }
         finally {
-            this.prisma.$disconnect();
+            await this.prisma.$disconnect();
         }
     }
 
     async getAllRecursivePaymentsByAccountId(accountId: number): Promise<any> {
         try {
-            this.prisma.$connect();
+            await this.prisma.$connect();
 
             let allRecursivePays: any;
 
@@ -72,7 +72,7 @@ export class RecursivePayRepository implements RecursivePayIntefaceRepository {
             throw new DatabaseException("database operation has failed to get all recursive payments", 422)
         }
         finally {
-            this.prisma.$disconnect();
+            await this.prisma.$disconnect();
         }
     }
 }

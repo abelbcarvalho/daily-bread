@@ -15,7 +15,7 @@ export class BankRepository implements BankInterfaceRepository {
 
     async createNewBankAccount(bank: Bank): Promise<any> {
         try {
-            this.prisma.$connect();
+            await this.prisma.$connect();
 
             let response: any;
 
@@ -30,13 +30,13 @@ export class BankRepository implements BankInterfaceRepository {
             throw new DatabaseException("database operation has failed to create bank account", 422);
         }
         finally {
-            this.prisma.$disconnect();
+            await this.prisma.$disconnect();
         }
     }
 
     async updateExistingBankAccount(bank: BankUpdateDTO, bankId: number): Promise<any> {
         try {
-            this.prisma.$connect();
+            await this.prisma.$connect();
 
             let response: any;
 
@@ -66,13 +66,13 @@ export class BankRepository implements BankInterfaceRepository {
             throw new DatabaseException("database operation has failed to update an existing account");
         }
         finally {
-            this.prisma.$disconnect();
+            await this.prisma.$disconnect();
         }
     }
 
     async getAllBankAccountFromAnUser(accountId: number): Promise<any> {
         try {
-            this.prisma.$connect();
+            await this.prisma.$connect();
 
             let response: any;
 
@@ -87,7 +87,7 @@ export class BankRepository implements BankInterfaceRepository {
             throw new DatabaseException("database operation to get all banks from an account empty");
         }
         finally {
-            this.prisma.$disconnect();
+            await this.prisma.$disconnect();
         }
     }
 }

@@ -28,7 +28,7 @@ export class AccountRepository implements AccountInterfaceRepository {
             throw new DatabaseException("database operation has failed to create account", 422);
         }
         finally {
-            this.prisma.$disconnect();
+            await this.prisma.$disconnect();
         }
     }
 
