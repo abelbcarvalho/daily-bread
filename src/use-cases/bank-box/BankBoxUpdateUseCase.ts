@@ -1,6 +1,7 @@
 import { BankBoxDTO } from "@dtos/BankBoxDTO";
 import { BankBoxInterfaceRepository } from "@interfaces/BankBoxInterfaceRepository";
 import { BankBoxRepository } from "@repositories/BankBoxRepository";
+import { AdapterBankBoxDTO } from "@utilities/dto-adapters/AdapterBankBoxDTO";
 
 export class BankBoxUpdateUseCase {
     private respository: BankBoxInterfaceRepository;
@@ -10,6 +11,10 @@ export class BankBoxUpdateUseCase {
     }
 
     async execute(bankBox: BankBoxDTO, idBankBox: number): Promise<any> {
-        return await this.respository.updateAnExistingBankBox(bankBox, idBankBox);
+        const response = await this.respository.updateAnExistingBankBox(bankBox, idBankBox);
+
+        const updatedBankBox = await AdapterBankBoxDTO.adaptBankBoxDomainToModel(response);
+
+        return updatedBankBox;
     }
 }
