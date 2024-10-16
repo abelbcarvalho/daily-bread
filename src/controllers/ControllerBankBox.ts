@@ -1,6 +1,7 @@
 import { BaseException } from "@exceptions/BaseException";
 import { BankBoxInterface } from "@interfaces/BankBoxInterface";
 import { ServiceBankBox } from "@services/ServiceBankBox";
+import { AdapterBankBoxDTO } from "@utilities/dto-adapters/AdapterBankBoxDTO";
 import { Request, Response } from "express";
 
 export class ControllerBankBox {
@@ -12,7 +13,10 @@ export class ControllerBankBox {
 
     async createNewBankBox(response: Response, request: Request): Promise<any> {
         try {
-            const bankBox = request.body;
+            const adapter = new AdapterBankBoxDTO(request);
+
+            const bankBox = await adapter.adapterBankBoxDTO();
+            request.body = {};
 
             const result = await this.service.createNewBankBox(bankBox);
 
@@ -26,7 +30,11 @@ export class ControllerBankBox {
 
     async updateAnExistingBankBox(response: Response, request: Request): Promise<any> {
         try {
-            const bankBox = request.body;
+            const adapter = new AdapterBankBoxDTO(request);
+
+            const bankBox = await adapter.adapterBankBoxDTOUpdate();
+
+            request.body = {};
             const bankBoxId = parseInt(request.params["id"]);
 
             const result = await this.service.updateAnExistingBankBox(bankBox, bankBoxId);
