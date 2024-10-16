@@ -17,9 +17,9 @@ export class ControllerBank {
         try {
             const accountId = await getAccountIdFromRequestBody(request);
 
-            request.body = {};
-
             const adapter = new AdapterBankDTO(request);
+
+            request.body = {};
 
             const bank = await adapter.adapterBankDTO();
             bank.accountId = accountId;
