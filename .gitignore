@@ -131,3 +131,6 @@ dist
 
 # draft.ts
 draft.ts
+
+# webstorm
+.idea/
